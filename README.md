@@ -44,7 +44,7 @@ Rscript --vanilla \
   -i /shared/lucasg/pipeline_cellhashing_tests/data/pool16/filtered_feature_bc_matrix.h5 \
   -l /shared/lucasg/pipeline_cellhashing_tests/data/pool16/molecule_info.h5 \
   -s /shared/lucasg/pipeline_cellhashing_tests/data/pool16/metrics_summary.h5 \
-  -s /shared/lucasg/pipeline_cellhashing_tests/data/pool16/SampleSheet.csv
+  -k /shared/lucasg/pipeline_cellhashing_tests/data/pool16/SampleSheet.csv
   -w X000-P1C1W3 \
   -u /shared/lucasg/pipeline_cellhashing_tests/output/pool16/ \
   -o /shared/lucasg/pipeline_cellhashing_tests/output/pool16/X000-P1C1W3_metadata_report.html
