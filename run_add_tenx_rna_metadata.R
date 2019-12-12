@@ -11,15 +11,25 @@ option_list <- list(
               default = NULL,
               help = "Input molecule_info.h5 file",
               metavar = "character"),
+  make_option(opt_str = c("-s", "--in_sum"),
+              type = "character",
+              default = NULL,
+              help = "Input metrics_summary.csv file",
+              metavar = "character"),
+  make_option(opt_str = c("-k", "--in_key"),
+              type = "character",
+              default = NULL,
+              help = "Input SampleSheet.csv file",
+              metavar = "character"),
   make_option(opt_str = c("-w","--in_well"),
               type = "character",
               default = NULL,
               help = "Well",
               metavar = "character"),
-  make_option(opt_str = c("-u","--out-h5"),
+  make_option(opt_str = c("-u","--out-dir"),
               type = "character",
               default = NULL,
-              help = "Output .h5 file",
+              help = "Output directory",
               metavar = "character"),
   make_option(opt_str = c("-o","--out_html"),
               type = "character",
@@ -37,18 +47,20 @@ if(is.null(args$out_html)) {
   stop("No parameters supplied.")
 }
 
-file.copy(system.file("rmarkdown/add_nonhashed_metadata.Rmd", package = "H5weaver"),
-          "./add_nonhashed_metadata.Rmd",
+file.copy(system.file("rmarkdown/add_tenx_rna_metadata.Rmd", package = "H5weaver"),
+          "./add_tenx_rna_metadata.Rmd",
           overwrite = TRUE)
 
 rmarkdown::render(
-  input = "./add_nonhashed_metadata.Rmd",
+  input = "./add_tenx_rna_metadata.Rmd",
   params = list(in_h5 = args$in_h5,
                 in_mol = args$in_mol,
+                in_sum = args$in_sum,
+                in_key = args$in_key,
                 in_well = args$in_well,
-                out_h5 = args$out_h5),
+                out_dir = args$out_dir),
   output_file = args$out_html,
   quiet = TRUE
 )
 
-file.remove("./add_nonhashed_metadata.Rmd")
+file.remove("./add_tenx_rna_metadata.Rmd")
