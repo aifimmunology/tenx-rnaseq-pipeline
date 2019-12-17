@@ -26,7 +26,7 @@ option_list <- list(
               default = NULL,
               help = "Well",
               metavar = "character"),
-  make_option(opt_str = c("-d","--out-dir"),
+  make_option(opt_str = c("-d","--out_dir"),
               type = "character",
               default = NULL,
               help = "Output directory",
