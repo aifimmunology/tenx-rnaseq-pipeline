@@ -22,9 +22,9 @@ Scripts for annotating 10x Genomics scRNA-seq analysis data
 
 ## Dependencies
 
-This repository requires that `pandoc` and `libhdf5-devel` libraries are installed:
+This repository requires that `pandoc` and `libhdf5-dev` libraries are installed:
 ```
-sudo apt-get install pandoc libhdf5-devel
+sudo apt-get install pandoc libhdf5-dev
 ```
 
 It also depends on the `H5weaver`, `jsonlite`, `rmarkdown`, and `optparse` libraries.
