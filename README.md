@@ -69,7 +69,7 @@ Rscript --vanilla \
   tenx-rnaseq-pipeline/run_add_tenx_rna_metadata.R \
   -i /shared/lucasg/pipeline_cellhashing_tests/data/pool16/filtered_feature_bc_matrix.h5 \
   -l /shared/lucasg/pipeline_cellhashing_tests/data/pool16/molecule_info.h5 \
-  -s /shared/lucasg/pipeline_cellhashing_tests/data/pool16/metrics_summary.h5 \
+  -s /shared/lucasg/pipeline_cellhashing_tests/data/pool16/metrics_summary.csv \
   -k /shared/lucasg/pipeline_cellhashing_tests/data/pool16/SampleSheet.csv \
   -w X000-P1C1W3 \
   -d /shared/lucasg/pipeline_cellhashing_tests/output/pool16/ \
