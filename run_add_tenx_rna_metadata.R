@@ -47,12 +47,20 @@ if(is.null(args$out_html)) {
   stop("No parameters supplied.")
 }
 
+if(!dir.exists(args$out_dir)) {
+  dir.create(args$out_dir)
+}
+
+rmd_loc <- file.path(args$out_dir,
+                     paste0(args$in_well,
+                            "_add_tenx_rna_metadata.Rmd"))
+
 file.copy(system.file("rmarkdown/add_tenx_rna_metadata.Rmd", package = "H5weaver"),
-          "./add_tenx_rna_metadata.Rmd",
+          rmd_loc,
           overwrite = TRUE)
 
 rmarkdown::render(
-  input = "./add_tenx_rna_metadata.Rmd",
+  input = rmd_loc,
   params = list(in_h5 = args$in_h5,
                 in_mol = args$in_mol,
                 in_sum = args$in_sum,
@@ -63,4 +71,4 @@ rmarkdown::render(
   quiet = TRUE
 )
 
-file.remove("./add_tenx_rna_metadata.Rmd")
+file.remove(rmd_loc)
