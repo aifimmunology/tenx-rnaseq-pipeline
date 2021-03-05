@@ -8,6 +8,8 @@ Scripts for annotating 10x Genomics scRNA-seq analysis data
 
 #### [Dependencies](#dependencies)
 
+### 10x cellranger scRNA-seq data
+
 #### [Metadata Annotation: run_add_tenx_rna_metadata.R](#meta)
 - [Parameters](#meta_param)
 - [Non-Hashed Guidelines](#non)
@@ -17,6 +19,19 @@ Scripts for annotating 10x Genomics scRNA-seq analysis data
   - [SampleSheet](#hash_sample_sheet)
   - [Outputs](#hash_out)
 - [Tests](#meta_test)
+
+### 10x cellranger-arc processing
+
+#### [Modifications for ARC](#arc)
+
+#### [Add UUIDs: 00_arc_uuid.sh](#arc_uuid)
+- [Parameters](#arc_uuid_param)
+- [Outputs](#arc_uuid_out)
+
+#### [ARC Metadata Annotation: run_arc_tenx_rna_metadata.R](#arc_meta)
+- [Parameters](#arc_meta_param)
+- [SampleSheet](#arc_meta_sample_sheet)
+- [Outputs](#arc_meta_out)
 
 <a id="dependencies"></a>
 
@@ -154,3 +169,101 @@ Rscript --vanilla \
 ```
 
 [Return to Contents](#contents)
+
+
+<a id="arc"></a>
+
+## Modifications for cellranger-arc
+
+Some QC statistics and parameters differ when using cellranger-arc for 10x Multiome or TEA-seq experiments. To account for these differences, there are modified versions of a few key steps.
+
+**NOTE** The scripts for this step are stored in the `tenx-atacseq-pipeline` repository. This step only needs to be performed once for a given cellranger-arc output set.
+
+[Return to Contents](#contents)
+
+<a id = "arc_uuid"></a>
+
+### Add UUIDs
+
+Prior to running processing of ATAC or RNA data from cellranger-arc output, run 00_arc_uuid.sh to add a unique identifier to the per_barcode_metrics.csv file. This ensures that we don't end up with different UUIDs assigned in the RNA and ATAC arms of the pipeline. This script simply adds a cell_uuid column to the per_barcode_metrics.csv file, and saves a copy of the original as per_barcode_metrics.csv.bak in the outs/ directory.
+
+<a id="arc_uuid_param"></a>
+
+### Parameters
+
+There's only one parameter for this script:  
+- `-p`: per_parcode_metrics.csv file from cellranger-arc outs/
+
+An example run is:
+```
+bash tenx-atacseq-pipeline/00_arc_uuid.sh \
+  -p outs/per_barcode_metrics.csv
+```
+<a id="arc_uuid_out"></a>
+
+As noted above, this modifies the per_barcode_metrics.csv file in place, and stores a backup copy of the original:  
+- per_barcode_metrics.csv: Barcode metrics with an additional cell_uuid column  
+- per_barcode_metrics.csv.bak: Backup copy of the original barcode metrics file.
+
+[Return to Contents](#contents)
+
+<a id="arc_meta"></a>
+
+## Metadata annotation for cellranger-arc results
+
+As for standard scRNA-seq cellranger results, this script will add additional cell metadata to the RNA .h5 files.
+
+In addition, it will separate the Gene Expression and Peaks matrices into separate matrix objects in the .h5 file to enable downstream processing of hashed runs.
+
+[Return to Contents](#contents)
+
+<a id="arc_meta_param"></a>
+
+### Parameters
+
+The main difference from a cellranger run is the addition of the `-p` parameter for the per_barcode_metrics.csv file.
+
+There are 8 parameters for this script:  
+- `-i or --in_h5`: The path to the filtered_feature_bc_matrix.h5 file from cellranger-arc outs/  
+- `-l or --in_mol`: The path to the molecule_info.h5 file from cellranger-arc outs/  
+- `-s or --in_sum`: The path to the metrics_summary.csv file from cellranger-arc outs/  
+- `-p or --in_pbm`: The path to the per_barcode_metrics.csv file from cellranger-arc outs/
+- `-k or --in_key`: The path to SampleSheet.csv  
+- `-w or --in_well`: A well name to use for metadata in the format `[XB][0-9]{3}-P[0-9]C[0-9]W[0-9]`  
+- `-d or --out_dir`: A directory to use to output the modified .h5 and JSON metrics  
+- `-o or --out_html`: A filename to use to output the HTML summary report file  
+
+An example run for a cellranger-arc count result is:
+```
+Rscript --vanilla \
+  tenx-rnaseq-pipeline/run_arc_tenx_rna_metadata.R \
+  -i outs/filtered_feature_bc_matrix.h5 \
+  -l outs/molecule_info.h5 \
+  -s outs/metrics_summary.csv \
+  -p outs/per_barcode_metrics.csv
+  -k SampleSheet.csv \
+  -w X000-P1C1W3 \
+  -d rna_preprocessed/ \
+  -o rna_preprocessed/X000-P1C1W3_metadata_report.html
+```
+
+[Return to Contents](#contents)
+
+<a id="arc_meta_sample_sheet"></a>
+
+### `SampleSheet.csv` formats and output filenames
+
+This script is designed to work with both **Non-Hashed** and **Cell Hashed** input data.
+
+Sample sheet formats follow the same conventions as [for scRNA-seq, above](#non_sample_sheet).
+
+[Return to Contents](#contents)
+
+<a id="arc_meta_out"></a>
+
+### Output files
+
+Ouput formats follow the same conventions as [for scRNA-seq, above](#non_out).
+
+[Return to Contents](#contents)
+
