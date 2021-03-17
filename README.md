@@ -221,7 +221,7 @@ In addition, it will separate the Gene Expression and Peaks matrices into separa
 
 ### Parameters
 
-The main difference from a cellranger run is the addition of the `-p` parameter for the per_barcode_metrics.csv file.
+The main difference from a cellranger run is the addition of the `-p` parameter for the per_barcode_metrics.csv file. Note also that the molecule_info.h5 file is named gex_molecule_info.h5 and metrics_summary.csv is summary.csv in cellranger-arc outs/.
 
 There are 8 parameters for this script:  
 - `-i or --in_h5`: The path to the filtered_feature_bc_matrix.h5 file from cellranger-arc outs/  
@@ -238,8 +238,8 @@ An example run for a cellranger-arc count result is:
 Rscript --vanilla \
   tenx-rnaseq-pipeline/run_arc_tenx_rna_metadata.R \
   -i outs/filtered_feature_bc_matrix.h5 \
-  -l outs/molecule_info.h5 \
-  -s outs/metrics_summary.csv \
+  -l outs/gex_molecule_info.h5 \
+  -s outs/summary.csv \
   -p outs/per_barcode_metrics.csv
   -k SampleSheet.csv \
   -w X000-P1C1W3 \
