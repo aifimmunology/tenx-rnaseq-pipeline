@@ -251,7 +251,7 @@ There are 5 parameters for this script:
 An example run for a cellranger-arc count result is:
 ```
 Rscript --vanilla \
-  tenx-rnaseq-pipeline/run_arc_tenx_rna_metadata.R \
+  tenx-rnaseq-pipeline/run_crossplatform_rna_metadata.R \
   -t outs/ \
   -k SampleSheet.csv \
   -w X000-P1C1W3 \
