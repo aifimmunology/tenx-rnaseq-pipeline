@@ -47,7 +47,7 @@ if(!dir.exists(args$out_dir)) {
 }
 
 rmd_loc <- file.path(args$out_dir,
-                     paste0(args$in_well,
+                     paste0(args$well_id,
                             "_adt_injection.Rmd"))
 
 file.copy(system.file("rmarkdown/adt_injection.Rmd", package = "H5weaver"),

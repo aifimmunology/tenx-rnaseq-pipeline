@@ -368,12 +368,13 @@ There are 6 parameters for this script:
 An example run for a cellranger count result is:
 ```
 Rscript --vanilla \
-  tenx-rnaseq-pipeline/run_adt_well_qc.R \
-  -i /data/tarpits/BarCounter/X070-EP1C1W1_Tag_counts.tsv \
-  -b /data/tarpits/outs/filtered_feature_bc_matrix/barcodes.tsv \
-  -w X070-EP1C1W1 \
-  -d /data/tarpits/adt_qc/ \
-  -o /data/tarpits/adt_qc/X070-EP1C1W1_adt_qc_report.html
+  tenx-rnaseq-pipeline/run_adt_injection.R \
+  -i /data/tarpits/rna_preprocessed/X070-P1C1W1.h5 \
+  -c /data/tarpits/adt_qc/X070-EP1C1W1_adt_positive_tag_counts.csv \
+  -m /data/tarpits/adt_qc/X070-EP1C1W1_adt_metadata.csv \
+  -w X070-P1C1W1 \
+  -d /data/tarpits/rna_adt_injection/ \
+  -o /data/tarpits/adt_qc/X070-P1C1W1_adt_injection_report.html
 ```
 
 [Return to Contents](#contents)
