@@ -71,7 +71,6 @@ install.packages("optparse")
 
 `H5weaver` is found in the aifimmunology Github repositories. Install with:
 ```
-Sys.setenv(GITHUB_PAT = "[your_PAT_here]")
 devtools::install_github("aifimmunology/H5weaver")
 ```
 
