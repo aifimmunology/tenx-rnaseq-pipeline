@@ -417,7 +417,7 @@ An updated .h5 file will be generated based on the filename of the input .h5, wi
 
 ## License
 
-The license for this package is available on Github in the file LICENSE in this repository
+The license for this package is available on Github in the file LICENSE.txt in this repository.
 
 <a id="support"></a>
 
@@ -429,5 +429,5 @@ We are not currently supporting this code, but simply releasing it to the commun
 
 ## Contribution Agreement
 
-If you contribute code to this repository through pull requests or other mechanisms, you are subject to the Allen Institute Contribution Agreement, which is available in the file CONTRIBUTING.md in this repository
+If you contribute code to this repository through pull requests or other mechanisms, you are subject to the Allen Institute Contribution Agreement, which is available in the file CONTRIBUTING.md in this repository.
 
